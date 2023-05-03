@@ -17,7 +17,7 @@ public class E2215 {
                     break;
                 }
             }
-            if ( !b && !list1.contains(nums1[i])) {
+            if (!b && !list1.contains(nums1[i])) {
                 list1.add(nums1[i]);
             }
         }
@@ -29,7 +29,7 @@ public class E2215 {
                     break;
                 }
             }
-            if ( !b && !list2.contains(nums2[i])) {
+            if (!b && !list2.contains(nums2[i])) {
                 list2.add(nums2[i]);
             }
         }
