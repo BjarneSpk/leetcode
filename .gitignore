@@ -23,7 +23,9 @@
 hs_err_pid*
 replay_pid*
 
-.settings
-.gitignore
-.vscode
+/.settings/
+/.vscode/
 /target/
+/target/
+.classpath
+.project
