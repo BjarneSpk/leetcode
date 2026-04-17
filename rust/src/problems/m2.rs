@@ -1,40 +1,27 @@
-use crate::utils::list::ListNode;
+use rust::utils::list::ListNode;
 
-struct Solution {}
+pub struct Solution {}
 
 impl Solution {
     pub fn add_two_numbers(
         l1: Option<Box<ListNode>>,
         l2: Option<Box<ListNode>>,
     ) -> Option<Box<ListNode>> {
-        let mut new_head: Box<ListNode> = Box::new(ListNode::new(0));
-        let mut new_tail = &mut new_head;
+        let mut head = Box::new(ListNode::new(-1));
+        let mut tail = &mut head;
+        let mut current = (l1, l2);
         let mut carry = 0;
-
-        let (mut nl, mut nr) = (l1, l2);
-        while nl.is_some() || nr.is_some() || carry > 0 {
-            let val1 = nl.as_ref().map_or(0, |node| node.val);
-            let val2 = nr.as_ref().map_or(0, |node| node.val);
-
-            let sum = val1 + val2 + carry;
+        while current.0.is_some() || current.1.is_some() || carry != 0 {
+            let (c0, c1) = current;
+            let sum = c0.as_ref().map_or(0, |n| n.val) + c1.as_ref().map_or(0, |n| n.val) + carry;
             carry = sum / 10;
 
-            new_tail.next = Some(Box::new(ListNode::new(sum % 10)));
-            new_tail = new_tail.next.as_mut().unwrap(); // Move the tail forward
+            tail.next = Some(Box::new(ListNode::new(sum % 10)));
+            tail = tail.next.as_mut().unwrap();
 
-            if let Some(node) = nl {
-                nl = node.next;
-            } else {
-                nl = None;
-            }
-
-            if let Some(node) = nr {
-                nr = node.next;
-            } else {
-                nr = None;
-            }
+            current = (c0.and_then(|n| n.next), c1.and_then(|n| n.next));
         }
 
-        new_head.next
+        head.next
     }
 }
